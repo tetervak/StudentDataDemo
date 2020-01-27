@@ -10,7 +10,7 @@ public class StudentEntity implements Serializable {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = 0;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName = "";
