@@ -8,21 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/students")
 public class StudentDataController {
 
     private final Logger logger = LoggerFactory.getLogger(StudentDataController.class);
 
     private static final String[] programs = {
-            "--- Select Program ---",
             "Computer Programmer", "Systems Technology",
             "Engineering Technician", "Systems Technician"};
 
@@ -32,23 +29,23 @@ public class StudentDataController {
         this.studentDataService = studentDataService;
     }
 
-    @RequestMapping(value={"/", "/Index"})
+    @GetMapping(value={"/", "/Index"})
     public String index(){
         logger.trace("index() is called");
-        return "Index";
+        return "students/Index";
     }
 
-    @RequestMapping("/AddStudent")
+    @GetMapping("/AddStudent")
     public ModelAndView addStudent(){
         logger.trace("addStudent() is called");
         ModelAndView modelAndView =
-                new ModelAndView("AddStudent",
+                new ModelAndView("students/AddStudent",
                                     "form", new StudentForm());
         modelAndView.addObject("programs", programs);
         return modelAndView;
     }
 
-    @RequestMapping("/InsertStudent")
+    @PostMapping("/InsertStudent")
     public String insertStudent(
             @Validated @ModelAttribute("form") StudentForm form,
             BindingResult bindingResult,
@@ -59,15 +56,15 @@ public class StudentDataController {
             logger.trace("input validation errors");
             //model.addAttribute("form", form);
             model.addAttribute("programs", programs);
-            return "AddStudent";
+            return "students/AddStudent";
         } else {
             logger.trace("the user inputs are correct");
             studentDataService.insertStudentForm(form);
-            return "redirect:ConfirmInsert/" + form.getId();
+            return "redirect:/students/ConfirmInsert/" + form.getId();
         }
     }
 
-    @RequestMapping("/ConfirmInsert/{id}")
+    @GetMapping("/ConfirmInsert/{id}")
     public String confirmInsert(@PathVariable(name = "id") String strId, Model model){
         logger.trace("confirmInsert() is called");
         try {
@@ -76,71 +73,71 @@ public class StudentDataController {
             StudentForm form = studentDataService.getStudentForm(id);
             if (form == null) {
                 logger.trace("no data for this id=" + id);
-                return "DataNotFound";
+                return "students/DataNotFound";
             } else {
                 logger.trace("showing the data");
                 model.addAttribute("student", form);
-                return "ConfirmInsert";
+                return "students/ConfirmInsert";
             }
         } catch (NumberFormatException e) {
             logger.trace("the id in not an integer");
-            return "DataNotFound";
+            return "students/DataNotFound";
         }
     }
 
-    @RequestMapping("/ListStudents")
+    @GetMapping("/ListStudents")
     public ModelAndView listStudents() {
         logger.trace("listStudents() is called");
         List<StudentForm> list = studentDataService.getAllStudentForms();
-        return new ModelAndView("ListStudents",
+        return new ModelAndView("students/ListStudents",
                                 "students", list);
     }
 
-    @RequestMapping("/DeleteAll")
+    @GetMapping("/DeleteAll")
     public String deleteAll(){
         logger.trace("deleteAll() is called");
         studentDataService.deleteAllStudentForms();
-        return "redirect:ListStudents";
+        return "redirect:/students/ListStudents";
     }
 
-    @RequestMapping("StudentDetails/{id}")
+    @GetMapping("StudentDetails/{id}")
     public String studentDetails(@PathVariable String id, Model model){
         logger.trace("studentDetails() is called");
         try {
             StudentForm form = studentDataService.getStudentForm(Integer.parseInt(id));
             if (form != null) {
                 model.addAttribute("student", form);
-                return "StudentDetails"; // show the student data in the form to edit
+                return "students/StudentDetails"; // show the student data in the form to edit
             } else {
                 logger.trace("no data for this id=" + id);
-                return "DataNotFound";
+                return "students/DataNotFound";
             }
         } catch (NumberFormatException e) {
             logger.trace("the id is missing or not an integer");
-            return "DataNotFound";
+            return "students/DataNotFound";
         }
     }
 
     // a user clicks "Delete" link (in the table) to "DeleteStudent"
-    @RequestMapping("/DeleteStudent")
+    @GetMapping("/DeleteStudent")
     public String deleteStudent(@RequestParam String id, Model model) {
         logger.trace("deleteStudent() is called");
         try {
             StudentForm form = studentDataService.getStudentForm(Integer.parseInt(id));
             if (form != null) {
                 model.addAttribute("student", form);
-                return "DeleteStudent"; // ask "Do you really want to remove?"
+                return "students/DeleteStudent"; // ask "Do you really want to remove?"
             } else {
-                return "redirect:ListStudents";
+                return "redirect:/students/ListStudents";
             }
         } catch (NumberFormatException e) {
-            return "redirect:ListStudents";
+            return "redirect:/students/ListStudents";
         }
     }
 
     // a user clicks "Remove Record" button in "DeleteStudent" page,
     // the form submits the data to "RemoveStudent"
-    @RequestMapping("/RemoveStudent")
+    @PostMapping("/RemoveStudent")
     public String removeStudent(@RequestParam String id) {
         logger.trace("removeStudent() is called");
         try {
@@ -148,11 +145,11 @@ public class StudentDataController {
         } catch (NumberFormatException e) {
             logger.trace("the id is missing or not an integer");
         }
-        return "redirect:ListStudents";
+        return "redirect:/students/ListStudents";
     }
 
     // a user clicks "Edit" link (in the table) to "EditStudent"
-    @RequestMapping("/EditStudent")
+    @GetMapping("/EditStudent")
     public String editStudent(@RequestParam String id, Model model) {
         logger.trace("editStudent() is called");
         try {
@@ -160,19 +157,19 @@ public class StudentDataController {
             if (form != null) {
                 model.addAttribute("form", form);
                 model.addAttribute("programs", programs);
-                return "EditStudent";
+                return "students/EditStudent";
             } else {
                 logger.trace("no data for this id=" + id);
-                return "redirect:ListStudents";
+                return "redirect:/students/ListStudents";
             }
         } catch (NumberFormatException e) {
             logger.trace("the id is missing or not an integer");
-            return "redirect:ListStudents";
+            return "redirect:/students/ListStudents";
         }
     }
 
     // the form submits the data to "UpdateStudent"
-    @RequestMapping("/UpdateStudent")
+    @PostMapping("/UpdateStudent")
     public String updateStudent(
             @Validated @ModelAttribute("form") StudentForm form,
             BindingResult bindingResult,
@@ -183,12 +180,12 @@ public class StudentDataController {
             logger.trace("input validation errors");
             //model.addAttribute("form", form);
             model.addAttribute("programs", programs);
-            return "EditStudent";
+            return "students/EditStudent";
         } else {
             logger.trace("the user inputs are correct");
             studentDataService.updateStudentForm(form);
             logger.debug("id = " + form.getId());
-            return "redirect:StudentDetails/" + form.getId();
+            return "redirect:/students/StudentDetails/" + form.getId();
         }
     }
 }

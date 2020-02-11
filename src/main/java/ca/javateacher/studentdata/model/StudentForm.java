@@ -24,7 +24,7 @@ public class StudentForm implements Serializable {
     @NotNull
     @Min(1)
     @Max(3)
-    private int programYear = 1;
+    private int programYear = 0;
 
     private boolean programCoop = false;
 

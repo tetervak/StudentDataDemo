@@ -6,8 +6,8 @@ $(function () {
         = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     let month = months[date.getMonth()];
     let day = date.getDate();
-    $("body").append("<footer></footer>");
-    $("footer")
+    $("body").append("<footer><div id='sheridan' class='container'></div></footer>");
+    $("#sheridan")
         .html("Sheridan College&nbsp;&nbsp;<span class='hart'>&#9825;</span>&nbsp;&nbsp;")
         .append(`${month} ${day}, ${year}`);
 });

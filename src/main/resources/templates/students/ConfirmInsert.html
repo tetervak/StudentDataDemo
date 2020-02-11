@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+    <title>Confirm Insert</title>
+</head>
+<body>
+<header>
+    <div th:replace="Header :: HeaderBar">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+            <div class="container">
+                <a href="../Index.html" class="navbar-brand">Student Data</a>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h1 class="my-4">Confirmation</h1>
+        <p class="alert alert-success">The student has been registered.</p>
+    </div>
+</header>
+<main role="main" class="container">
+    <div th:object="${student}" class="card">
+        <div class="card-header">
+            Student Record
+        </div>
+        <div class="card-body">
+            <p>
+                <label class="output-label">First Name:</label>
+                <span class="output" th:text="*{firstName}">Bart</span>
+            </p>
+            <p>
+                <label class="output-label">Last Name:</label>
+                <span class="output" th:text="*{lastName}">Simpson</span>
+            </p>
+            <p>
+                <label class="output-label">Program:</label>
+                <span class="output" th:text="*{programName}">Computer Programmer</span>
+            </p>
+            <p>
+                <label class="output-label">Year:</label>
+                <span class="output" th:text="*{programYear}">1</span>
+            </p>
+            <p>
+                <label class="output-label">Co-op:</label>
+                <span class="output" th:text="*{programCoop}">yes</span>
+            </p>
+            <p>
+                <label class="output-label">Internship:</label>
+                <span class="output" th:text="*{programInternship}">no</span>
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="ListStudents.html" th:href="@{../ListStudents}"
+               class="btn btn-primary"><i class="material-icons">format_list_numbered</i>&nbsp;List Students</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

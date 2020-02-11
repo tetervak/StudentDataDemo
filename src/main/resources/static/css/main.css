@@ -1,78 +1,93 @@
-/* Alex Tetervak, Sheridan College, Ontario */
-
-/*body{
-    background-color: cornsilk;
-    font-family: sans-serif;
-}*/
-
-main{
-    font-family: sans-serif;
-    padding-left: 1em;
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 80px; /* Margin bottom by footer height  + 20px*/
 }
 
-label.group_label{
-    color: #673ab7;
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #e9ecef;
 }
 
-input, select{
-    margin-left: 1em;
-    margin-top: 0.5em;
+/* change navbar background color */
+nav.navbar-custom {
+    background-color: #003767;
 }
 
-a{
-    color: limegreen;
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+label.form-label,
+label.col-form-label,
+div.col-form-label{
+    color: #6735b7;
     font-weight: bolder;
-    text-decoration: none;
 }
 
-a:hover{
-    text-decoration: underline;
+div.card>div.card-header{
+    color: green;
+    font-weight: bolder
 }
 
-span.output{
-    font-style: italic;
-    color: darkmagenta;
-    margin-left: 1em;
+/* limit the width of the pages in Bootstrap */
+.container{
+    max-width: 768px
 }
 
+dt{
+    color: #6735b7;
+}
 
 h1{
-    color: #4caf50;
-    text-shadow: 2px 2px 5px #81c784;
+    color:#ff5722;
 }
 
-h2 {
-    color: #00bcd4;
+h2{
+    color:#4caf50;
 }
 
-table {
-    margin-left: 2em;
-    margin-bottom: 2em;
-    border-collapse: collapse;
-    border: 1px solid black;
+th, td {
     text-align: center;
-    padding: .5em;
-}
-
-th {
-    background-color: lightsalmon;
-    border: 1px solid black;
-    padding: .5em;
-}
-
-td {
-    background-color: white;
-    border: 1px solid black;
-    padding: .5em;
 }
 
 .error{
-    color: darkred;
-    font-style: oblique;
+    color:#e91e63;
 }
 
 .message{
-    font-size: larger;
     font-weight: bolder;
-    color: #ff9800;
+    color: darkorange;
+}
+
+label.output-label{
+    font-weight: bolder;
+    color: #6735b7;
+    width: 100px;
+    text-align: right;
+    margin-right: 1em;
+}
+
+span.user{
+    font-weight: bolder;
+    color: blueviolet;
+}
+
+footer .hart {
+    color: #e91e63;
+}
+
+i.material-icons{
+    vertical-align: bottom;
 }

@@ -7,38 +7,59 @@
 <!--/*@thymesVar id="message" type="java.lang.String"*/-->
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/css/error.css}" href="../static/css/error.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
     <title>Error</title>
 </head>
 <body>
-<main>
-    <h1>Student Data Error</h1>
-    <h2>Error: <span th:text="${error}">Not Found</span></h2>
-    <table>
+<header>
+    <div th:replace="Header :: HeaderBar">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+            <div class="container">
+                <a href="Index.html" class="navbar-brand">Student Data</a>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h1 class="my-4">Student Data Error</h1>
+        <p class="alert alert-danger">Error: <span th:text="${error}">Not Found</span></p>
+    </div>
+</header>
+<main role="main" class="container">
+    <table class="table table-bordered table-striped">
+        <tbody>
         <tr>
-            <th>Date</th>
+            <th scope="row">Date</th>
             <td th:text="${timestamp}">Sun Feb 10 11:52:33 EST 2019</td>
         </tr>
         <tr>
-            <th>Path</th>
+            <th scope="row">Path</th>
             <td th:text="${path}">/blah/balh/balh</td>
         </tr>
         <tr>
-            <th>Error</th>
+            <th scope="row">Error</th>
             <td th:text="${error}">Not Found</td>
         </tr>
         <tr>
-            <th>Status</th>
+            <th scope="row">Status</th>
             <td th:text="${status}">404</td>
         </tr>
         <tr>
-            <th>Message</th>
+            <th scope="row">Message</th>
             <td th:text="${message}">No message available</td>
         </tr>
+        </tbody>
     </table>
-    <p><a href="Index.html" th:href="@{/Index}">Index</a></p>
+    <p class="mt-4">
+        <a th:href="@{/Index}" href="Index.html" class="btn btn-primary">
+            <i class="material-icons">home</i>&nbsp;Home</a></p>
 </main>
 </body>
 </html>
