@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
@@ -59,7 +59,7 @@
         </div>
         <div class="card-footer">
             <div class="btn-group">
-                <a class="btn btn-warning" href="EditStudent.html"
+                <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" href="EditStudent.html"
                    th:href="@{../EditStudent(id=*{id})}">
                     <i class="material-icons">edit</i>&nbsp;Edit Record</a>
                 <a class="btn btn-primary" href="ListStudents.html"

@@ -4,6 +4,7 @@ import ca.javateacher.studentdata.data.StudentDataService;
 import ca.javateacher.studentdata.model.StudentForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,7 @@ public class StudentDataController {
         return "students/Index";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/AddStudent")
     public ModelAndView addStudent(){
         logger.trace("addStudent() is called");
@@ -45,6 +47,7 @@ public class StudentDataController {
         return modelAndView;
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/InsertStudent")
     public String insertStudent(
             @Validated @ModelAttribute("form") StudentForm form,
@@ -64,6 +67,7 @@ public class StudentDataController {
         }
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/ConfirmInsert/{id}")
     public String confirmInsert(@PathVariable(name = "id") String strId, Model model){
         logger.trace("confirmInsert() is called");
@@ -93,6 +97,7 @@ public class StudentDataController {
                                 "students", list);
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/DeleteAll")
     public String deleteAll(){
         logger.trace("deleteAll() is called");
@@ -119,6 +124,7 @@ public class StudentDataController {
     }
 
     // a user clicks "Delete" link (in the table) to "DeleteStudent"
+    @Secured("ROLE_ADMIN")
     @GetMapping("/DeleteStudent")
     public String deleteStudent(@RequestParam String id, Model model) {
         logger.trace("deleteStudent() is called");
@@ -137,6 +143,7 @@ public class StudentDataController {
 
     // a user clicks "Remove Record" button in "DeleteStudent" page,
     // the form submits the data to "RemoveStudent"
+    @Secured("ROLE_ADMIN")
     @PostMapping("/RemoveStudent")
     public String removeStudent(@RequestParam String id) {
         logger.trace("removeStudent() is called");
@@ -149,6 +156,7 @@ public class StudentDataController {
     }
 
     // a user clicks "Edit" link (in the table) to "EditStudent"
+    @Secured("ROLE_ADMIN")
     @GetMapping("/EditStudent")
     public String editStudent(@RequestParam String id, Model model) {
         logger.trace("editStudent() is called");
@@ -169,6 +177,7 @@ public class StudentDataController {
     }
 
     // the form submits the data to "UpdateStudent"
+    @Secured("ROLE_ADMIN")
     @PostMapping("/UpdateStudent")
     public String updateStudent(
             @Validated @ModelAttribute("form") StudentForm form,

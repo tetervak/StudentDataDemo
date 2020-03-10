@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
@@ -11,33 +11,33 @@
     <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
-    <title>Students: Index</title>
+    <title>Delete User</title>
 </head>
+<body>
 <header>
     <div th:replace="Header :: HeaderBar">
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
             <div class="container">
-                <a href="../Index.html" class="navbar-brand">Student Data</a>
+                <a href="../Index.html" class="navbar-brand" >Student Data</a>
             </div>
         </nav>
     </div>
     <div class="container">
-        <h1 class="my-4">Students</h1>
+        <h1 class="my-4">Delete User</h1>
+        <p class="alert alert-danger">
+            Do you really want to remove <span th:text="${#request.getParameter('login')}" class="user">login</span> user account?
+        </p>
     </div>
 </header>
-<body>
-    <main role="main" class="container">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a href="ListStudents.html" th:href="@{ListStudents}"
-                   class="nav-link"><i class="material-icons">format_list_numbered</i>&nbsp;List Students</a>
-            </li>
-            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
-                <a href="AddStudent.html" th:href="@{AddStudent}"
-                   class="nav-link"><i class="material-icons">playlist_add</i>&nbsp;Add Student</a>
-            </li>
-
-        </ul>
-    </main>
+<main role="main" class="container">
+    <form action="ListUsers.html" th:action="@{RemoveUser}" method="post">
+        <input type="hidden" name="login" th:value="${#request.getParameter('login')}">
+        <div class="btn-group">
+            <a href="ListUsers.html" th:href="@{ListUsers}"
+               role="button" class="btn btn-secondary"><i class="material-icons">undo</i>&nbsp;Cancel</a>
+            <button type="submit" class="btn btn-danger">Delete User&nbsp;<i class="material-icons">delete</i></button>
+        </div>
+    </form>
+</main>
 </body>
 </html>

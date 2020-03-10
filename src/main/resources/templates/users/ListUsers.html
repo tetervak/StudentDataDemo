@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="users" type="java.util.List<java.lang.String>"*/-->
+<!--/*@thymesVar id="admins" type="java.util.List<java.lang.String>"*/-->
+<!--/*@thymesVar id="you" type="java.util.List<java.lang.String>"*/-->
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+    <title>List Users</title>
+</head>
+<body>
+<header>
+    <div th:replace="Header :: HeaderBar">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+            <div class="container">
+                <a href="../Index.html" class="navbar-brand">Student Data</a>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h1 class="my-4">User List</h1>
+    </div>
+</header>
+
+<main role="main" class="container">
+    <h2>Role: User</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <p th:if="${#lists.isEmpty(users)}" class="alert alert-info">No user accounts yet.</p>
+            <table th:unless="${#lists.isEmpty(users)}" class="table table-bordered table-hover mb-4">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">Count</th>
+                        <th scope="col">Login</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u,c:${users}">
+                        <th th:text="${c.count}" scope="row">1</th>
+                        <td th:text="${u}">bart</td>
+                        <td><a th:href="@{DeleteUser(login=${u})}"
+                               href="DeleteUser.html"><i class="material-icons">delete</i>&nbsp;Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2>Role: Admin</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr class="table-primary">
+                    <th scope="col">Count</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="a,c:${admins}">
+                        <th th:text="${c.count}" scope="row">1</th>
+                        <td th:text="${a}">marge</td>
+                        <td>
+                            <a th:unless="${#strings.equals(a, you)}" th:href="@{DeleteUser(login=${a})}"
+                               href="DeleteUser.html"><i class="fas fa-user-minus"></i>&nbsp;Delete</a>
+                            <span th:if="${#strings.equals(a, you)}" class="message">You</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 row">
+        <div class="col-md-6">
+            <a th:href="@{AddUser}" href="AddUser.html"
+               class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;Add User</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

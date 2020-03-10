@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
+    <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
     <title>Index</title>
 </head>
 <body>
@@ -18,32 +18,36 @@
     <div th:replace="Header :: HeaderBar">
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
             <div class="container">
-                <a href="Index.html" class="navbar-brand">Student Data</a>
+                <a href="../Index.html" class="navbar-brand" >Student Data</a>
             </div>
         </nav>
     </div>
     <div class="container">
-        <h1 class="my-4">Home</h1>
+        <h1 class="my-4">Users</h1>
     </div>
 </header>
 <main role="main" class="container">
-    <ul sec:authorize="isAuthenticated()" class="nav flex-column">
+    <ul class="nav flex-column">
         <li class="nav-item">
-            <a th:href="@{/students/Index}" href="students/Index.html" class="nav-link">Student Data</a>
-        </li>
-        <li sec:authorize="hasRole('ADMIN')" class="nav-item">
-            <a th:href="@{/users/Index}" href="users/Index.html" class="nav-link">User Data</a>
+            <a th:href="@{AddUser}" href="AddUser.html"
+               class="nav-link">Add User</a>
         </li>
         <li class="nav-item">
-            <a th:href="@{/password/ChangePassword}" href="passwords/ChangePassword.html" class="nav-link">Change Password</a>
+            <a th:href="@{ListUsers}" href="ListUsers.html"
+               class="nav-link">List Users</a>
         </li>
         <li class="nav-item">
-            <a th:href="@{/Logout}" href="Index.html" class="nav-link">Logout</a>
+            <a th:href="@{/students/Index}" href="../students/Index.html"
+               class="nav-link">Student Data</a>
         </li>
-    </ul>
-    <ul sec:authorize="isAnonymous()" class="nav flex-column">
         <li class="nav-item">
-            <a th:href="@{/Login}" href="Login.html" class="nav-link">Login</a>
+            <a th:href="@{/password/ChangePassword}"
+               href="../passwords/ChangePassword.html"
+               class="nav-link">Change Password</a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/Logout}" href="../Index.html"
+               class="nav-link">Logout</a>
         </li>
     </ul>
 </main>
