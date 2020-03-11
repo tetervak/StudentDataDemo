@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.List;
 
-@Service("userDetailsServiceImpl")
+@Service
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -23,7 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private LoginDataService loginDataService;
 
-    @Autowired
     public UserDetailsServiceImpl(LoginDataService loginDataService) {
 
         this.loginDataService = loginDataService;
