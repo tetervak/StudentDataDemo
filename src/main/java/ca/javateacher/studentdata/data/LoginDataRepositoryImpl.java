@@ -1,6 +1,5 @@
 package ca.javateacher.studentdata.data;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,6 @@ public class LoginDataRepositoryImpl implements LoginDataRepository {
     private NamedParameterJdbcTemplate template;
     private PasswordEncoder encoder;
 
-    @Autowired
     public LoginDataRepositoryImpl(DataSource dataSource,
                                    PasswordEncoder encoder) {
         this.template = new NamedParameterJdbcTemplate(dataSource);

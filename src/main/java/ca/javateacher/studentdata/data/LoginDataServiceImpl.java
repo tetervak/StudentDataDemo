@@ -1,6 +1,5 @@
 package ca.javateacher.studentdata.data;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +9,6 @@ public class LoginDataServiceImpl implements LoginDataService {
 
     private LoginDataRepository loginDataRepository;
 
-    @Autowired
     public LoginDataServiceImpl(LoginDataRepository loginDataRepository) {
         this.loginDataRepository = loginDataRepository;
     }
