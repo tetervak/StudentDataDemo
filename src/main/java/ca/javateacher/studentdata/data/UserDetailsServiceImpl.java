@@ -44,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     {
         logger.trace("getAuthorities() is called");
         List<String> listOfRoles = loginDataService.getAllRoles(login);
-        String[] arrayOfRoles = listOfRoles.toArray(new String[listOfRoles.size()]);
+        String[] arrayOfRoles = listOfRoles.toArray(new String[0]);
         logger.trace("roles for login=" +
                 login + ":[" + String.join(",", arrayOfRoles) + "]");
         return AuthorityUtils.createAuthorityList(arrayOfRoles);
