@@ -13,9 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/password/*")
@@ -36,7 +34,7 @@ public class PasswordDataController {
     }
 
     // a user clicks "Change password" link
-    @RequestMapping("/ChangePassword")
+    @GetMapping("/ChangePassword")
     public String changePassword(Model model) {
         logger.trace("changePassword() is called");
         model.addAttribute("pcform", new PasswordChangeForm());
@@ -45,7 +43,7 @@ public class PasswordDataController {
 
     // a user clicks "Change Password" button in "ChangePassword.html",
     // the form submits data to "/UpdatePassword.do"
-    @RequestMapping("/UpdatePassword")
+    @PostMapping("/UpdatePassword")
     public String updatePassword(
             @Validated @ModelAttribute("pcform") PasswordChangeForm pcform,
             BindingResult result) {

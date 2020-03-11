@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,14 +31,14 @@ public class UserDataController {
         this.passwordGenerator = passwordGenerator;
     }
 
-    @RequestMapping(value={"/","/Index"})
+    @GetMapping(value={"/","/Index"})
     public String index(){
         logger.trace("index() is called");
         return "users/Index";
     }
 
     // an admin clicks "List Users" link in "Index.html",
-    @RequestMapping("/ListUsers")
+    @GetMapping("/ListUsers")
     public String listUsers(Model model) {
         logger.trace("listUsers() is called");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -49,7 +51,7 @@ public class UserDataController {
     }
 
     // an admin clicks "Add User" link in "ListUsers.html",
-    @RequestMapping("/AddUser")
+    @GetMapping("/AddUser")
     public String addUser(Model model) {
         logger.trace("addUser() is called");
         String message = "Enter login and password for the new user account.";
@@ -60,7 +62,7 @@ public class UserDataController {
 
     // an admin clicks on "Add User" button in "AddUser.html",
     // the form submits the data to "InsertUser"
-    @RequestMapping("/InsertUser")
+    @PostMapping("/InsertUser")
     public String insertUser(HttpServletRequest request) {
         logger.trace("insertUser() is called");
         String login = request.getParameter("login");
@@ -99,7 +101,7 @@ public class UserDataController {
     }
 
     // an admin clicks "Delete" link in "ListUsers.html",
-    @RequestMapping("/DeleteUser")
+    @GetMapping("/DeleteUser")
     public String deleteUser() {
         logger.trace("deleteUser() is called");
         return "users/DeleteUser";
@@ -107,7 +109,7 @@ public class UserDataController {
 
     // an admin clicks on "Delete User" button in "DeleteUser.jsp",
     // the form submits the data to "RemoveUser"
-    @RequestMapping("/RemoveUser")
+    @PostMapping("/RemoveUser")
     public String removeUser(@RequestParam String login) {
         loginDataService.removeRoles(login);
         loginDataService.removeUser(login);

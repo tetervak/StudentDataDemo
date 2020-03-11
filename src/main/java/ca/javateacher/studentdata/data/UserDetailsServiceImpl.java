@@ -33,15 +33,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(loginDataService.userExists(login)){
             logger.trace("user " + login + " is found");
             String password = loginDataService.getPassword(login);
-            return new User(login,password,getAuthorities(login));
+            return new User(login, password, getAuthorities(login));
         }else{
             logger.trace("user " + login + " is not found");
             throw new UsernameNotFoundException("Login " + login + " is not found");
         }
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(String login)
-    {
+    private Collection<? extends GrantedAuthority> getAuthorities(String login) {
         logger.trace("getAuthorities() is called");
         List<String> listOfRoles = loginDataService.getAllRoles(login);
         String[] arrayOfRoles = listOfRoles.toArray(new String[0]);
