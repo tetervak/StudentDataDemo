@@ -72,7 +72,7 @@
                         <td th:text="${a}">marge</td>
                         <td>
                             <a th:unless="${#strings.equals(a, you)}" th:href="@{DeleteUser(login=${a})}"
-                               href="DeleteUser.html"><i class="fas fa-user-minus"></i>&nbsp;Delete</a>
+                               href="DeleteUser.html"><i class="material-icons">delete</i>&nbsp;Delete</a>
                             <span th:if="${#strings.equals(a, you)}" class="message">You</span>
                         </td>
                     </tr>
