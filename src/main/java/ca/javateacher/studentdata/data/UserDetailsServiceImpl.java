@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(String login) {
+    private List<GrantedAuthority> getAuthorities(String login) {
         logger.trace("getAuthorities() is called");
         List<String> listOfRoles = loginDataService.getAllRoles(login);
         String[] arrayOfRoles = listOfRoles.toArray(new String[0]);
