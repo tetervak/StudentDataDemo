@@ -30,7 +30,7 @@ public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc 
     }
 
     @Override
-    public void insert(StudentForm form) {
+    public void insertStudentForm(StudentForm form) {
         String update = "INSERT INTO student "
                 + "(first_name, last_name, program_name, program_year, program_coop, program_internship) "
                 + "VALUES "
@@ -48,7 +48,7 @@ public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc 
     }
 
     @Override
-    public StudentForm get(int id) {
+    public StudentForm getStudentForm(int id) {
         String query = "SELECT * FROM student WHERE ID = :id";
         Map<String, Object> params = new HashMap<>();
         StudentForm form = null;
@@ -62,12 +62,12 @@ public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc 
     }
 
     @Override
-    public List<StudentForm> getAll() {
+    public List<StudentForm> getAllStudentForms() {
         return jdbcTemplate.query("SELECT * FROM student", new StudentFormMapper());
     }
 
     @Override
-    public void update(StudentForm form) {
+    public void updateStudentForm(StudentForm form) {
         String update = "UPDATE student SET "
                 + "first_name = :first_name, last_name = :last_name, "
                 + "program_name = :program_name, program_year = :program_year, "
@@ -85,7 +85,7 @@ public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc 
     }
 
     @Override
-    public void delete(int id) {
+    public void deleteStudentForm(int id) {
         String update = "DELETE FROM student WHERE id = :id";
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
@@ -93,7 +93,7 @@ public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc 
     }
 
     @Override
-    public void deleteAll() {
+    public void deleteAllStudentForms() {
         String update = "TRUNCATE TABLE student";
         jdbcTemplate.update(update);
     }

@@ -17,26 +17,26 @@ public class StudentDataServiceJdbcImpl implements StudentDataService {
     }
     
     public void insertStudentForm(StudentForm form){
-        studentDataRepository.insert(form);
+        studentDataRepository.insertStudentForm(form);
     }
     
     public StudentForm getStudentForm(int id){
-        return studentDataRepository.get(id);
+        return studentDataRepository.getStudentForm(id);
     }
     
     public List<StudentForm> getAllStudentForms(){
-        return studentDataRepository.getAll();
+        return studentDataRepository.getAllStudentForms();
     }
     
     public void updateStudentForm(StudentForm form){
-        studentDataRepository.update(form);
+        studentDataRepository.updateStudentForm(form);
     }
     
     public void deleteStudentForm(int id){
-       studentDataRepository.delete(id);
+       studentDataRepository.deleteStudentForm(id);
     }
     
     public void deleteAllStudentForms(){
-        studentDataRepository.deleteAll();
+        studentDataRepository.deleteAllStudentForms();
     }
 }

@@ -7,10 +7,10 @@ import ca.javateacher.studentdata.model.StudentForm;
 import java.util.List;
 
 public interface StudentDataRepositoryJdbc {
-    void insert(StudentForm form);
-    StudentForm get(int id);
-    List<StudentForm> getAll();
-    void update(StudentForm form);
-    void delete(int id);
-    void deleteAll();
+    void insertStudentForm(StudentForm form);
+    StudentForm getStudentForm(int id);
+    List<StudentForm> getAllStudentForms();
+    void updateStudentForm(StudentForm form);
+    void deleteStudentForm(int id);
+    void deleteAllStudentForms();
 }
