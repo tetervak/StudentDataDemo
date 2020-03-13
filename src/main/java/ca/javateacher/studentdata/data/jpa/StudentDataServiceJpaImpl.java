@@ -1,5 +1,7 @@
-package ca.javateacher.studentdata.data;
+package ca.javateacher.studentdata.data.jpa;
 
+import ca.javateacher.studentdata.data.StudentDataService;
+import ca.javateacher.studentdata.data.jpa.StudentDataRepositoryJpa;
 import ca.javateacher.studentdata.model.StudentEntity;
 import ca.javateacher.studentdata.model.StudentForm;
 import org.springframework.stereotype.Service;
@@ -9,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentDataServiceImpl implements StudentDataService {
+public class StudentDataServiceJpaImpl implements StudentDataService {
 
-    private StudentDataRepository studentDataRepository;
+    private StudentDataRepositoryJpa studentDataRepository;
 
-    StudentDataServiceImpl(StudentDataRepository studentDataRepository){
+    StudentDataServiceJpaImpl(StudentDataRepositoryJpa studentDataRepository){
         this.studentDataRepository = studentDataRepository;
     }
 

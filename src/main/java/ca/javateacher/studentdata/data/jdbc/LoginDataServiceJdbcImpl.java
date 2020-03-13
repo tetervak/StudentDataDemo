@@ -1,15 +1,17 @@
-package ca.javateacher.studentdata.data;
+package ca.javateacher.studentdata.data.jdbc;
 
+import ca.javateacher.studentdata.data.LoginDataRepository;
+import ca.javateacher.studentdata.data.LoginDataService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class LoginDataServiceImpl implements LoginDataService {
+public class LoginDataServiceJdbcImpl implements LoginDataService {
 
     private LoginDataRepository loginDataRepository;
 
-    public LoginDataServiceImpl(LoginDataRepository loginDataRepository) {
+    public LoginDataServiceJdbcImpl(LoginDataRepository loginDataRepository) {
         this.loginDataRepository = loginDataRepository;
     }
 

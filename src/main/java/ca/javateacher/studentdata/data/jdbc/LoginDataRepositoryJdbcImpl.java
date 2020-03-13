@@ -1,5 +1,6 @@
-package ca.javateacher.studentdata.data;
+package ca.javateacher.studentdata.data.jdbc;
 
+import ca.javateacher.studentdata.data.LoginDataRepository;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -10,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class LoginDataRepositoryImpl implements LoginDataRepository {
+public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
 
     private NamedParameterJdbcTemplate template;
     private PasswordEncoder encoder;
 
-    public LoginDataRepositoryImpl(DataSource dataSource,
-                                   PasswordEncoder encoder) {
+    public LoginDataRepositoryJdbcImpl(DataSource dataSource,
+                                       PasswordEncoder encoder) {
         this.template = new NamedParameterJdbcTemplate(dataSource);
         this.encoder = encoder;
     }
