@@ -1,9 +1,7 @@
 /* Alex Tetervak, Sheridan College, Ontario */
 package ca.javateacher.studentdata.data.jdbc;
 
-import ca.javateacher.studentdata.data.jdbc.StudentDataRepositoryJdbc;
 import ca.javateacher.studentdata.model.StudentForm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,11 +19,15 @@ import java.util.Map;
 @Repository
 public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc {
 
-    @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public StudentDataRepositoryJdbcImpl(
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate,
+            JdbcTemplate jdbcTemplate){
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public void insert(StudentForm form) {

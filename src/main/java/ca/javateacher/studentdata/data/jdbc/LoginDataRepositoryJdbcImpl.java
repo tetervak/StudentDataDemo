@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +15,9 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
     private NamedParameterJdbcTemplate template;
     private PasswordEncoder encoder;
 
-    public LoginDataRepositoryJdbcImpl(DataSource dataSource,
+    public LoginDataRepositoryJdbcImpl(NamedParameterJdbcTemplate template,
                                        PasswordEncoder encoder) {
-        this.template = new NamedParameterJdbcTemplate(dataSource);
+        this.template = template;
         this.encoder = encoder;
     }
 
