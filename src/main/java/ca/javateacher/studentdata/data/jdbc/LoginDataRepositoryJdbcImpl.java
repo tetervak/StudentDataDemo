@@ -1,6 +1,7 @@
 package ca.javateacher.studentdata.data.jdbc;
 
 import ca.javateacher.studentdata.data.LoginDataRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -12,12 +13,16 @@ import java.util.Map;
 @Repository
 public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
 
-    private NamedParameterJdbcTemplate template;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
     private PasswordEncoder encoder;
 
-    public LoginDataRepositoryJdbcImpl(NamedParameterJdbcTemplate template,
-                                       PasswordEncoder encoder) {
-        this.template = template;
+    public LoginDataRepositoryJdbcImpl(
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate,
+            JdbcTemplate jdbcTemplate,
+            PasswordEncoder encoder) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.jdbcTemplate = jdbcTemplate;
         this.encoder = encoder;
     }
 
@@ -27,8 +32,9 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
                 + "WHERE user_login = :user_login";
         Map<String, Object> params = new HashMap<>();
         params.put("user_login", login);
+        @SuppressWarnings("ConstantConditions")
         int count =
-                template.queryForObject(query, params, Integer.class);
+                namedParameterJdbcTemplate.queryForObject(query, params, Integer.class);
         return count != 0;
     }
 
@@ -39,25 +45,19 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("user_login", login);
         params.put("user_password", encoder.encode(password));
-        template.update(update, params);
+        namedParameterJdbcTemplate.update(update, params);
     }
 
     @Override
     public void insertRole(String login, String role) {
-        String update = "INSERT INTO roles "
-                + "(user_login, user_role) VALUES (:user_login, :user_role)";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        params.put("user_role", role);
-        template.update(update, params);
+        jdbcTemplate.update(
+                "INSERT INTO roles (user_login, user_role) VALUES (?, ?)",
+                login, role);
     }
 
     @Override
     public void removeUser(String login) {
-        String update = "DELETE FROM users WHERE user_login = :user_login";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        template.update(update, params);
+        jdbcTemplate.update("DELETE FROM users WHERE user_login = ?", login);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("user_login", login);
         params.put("user_role", role);
-        template.update(update, params);
+        namedParameterJdbcTemplate.update(update, params);
     }
 
     @Override
@@ -75,15 +75,14 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
         String update = "DELETE FROM roles WHERE user_login = :user_login";
         Map<String, Object> params = new HashMap<>();
         params.put("user_login", login);
-        template.update(update, params);
+        namedParameterJdbcTemplate.update(update, params);
     }
 
     @Override
     public List<String> getAllLogins(String role) {
-        String query = "SELECT user_login FROM roles WHERE user_role = :user_role";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_role", role);
-        return template.queryForList(query, params, String.class);
+        return jdbcTemplate.queryForList(
+                "SELECT user_login FROM roles WHERE user_role = ?",
+                String.class, role);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
         String query = "SELECT user_role FROM roles WHERE user_login = :user_login";
         Map<String, Object> params = new HashMap<>();
         params.put("user_login", login);
-        return template.queryForList(query, params, String.class);
+        return namedParameterJdbcTemplate.queryForList(query, params, String.class);
     }
 
     @Override
@@ -101,7 +100,7 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("user_login", login);
         params.put("user_password", encoder.encode(password));
-        template.update(update, params);
+        namedParameterJdbcTemplate.update(update, params);
     }
 
     @Override
@@ -112,11 +111,9 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
 
     @Override
     public String getPassword(String login) {
-        String query = "SELECT user_password FROM users "
-                + "WHERE user_login = :user_login";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        return template.queryForObject(query, params, String.class);
+        return jdbcTemplate.queryForObject(
+                "SELECT user_password FROM users WHERE user_login = ?",
+                String.class, login);
     }
 
 }
