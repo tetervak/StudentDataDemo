@@ -32,16 +32,16 @@
         <thead>
         <tr class="table-primary">
             <th scope="col">Count</th>
-            <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
+            <th scope="col">First Name</th>
             <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="s,c: ${students}">
             <th th:text="${c.count}" scope="row" class="align-middle">1</th>
-            <td th:text="${s.firstName}" class="align-middle">Bart</td>
             <td th:text="${s.lastName}" class="align-middle">Simpson</td>
+            <td th:text="${s.firstName}" class="align-middle">Bart</td>
             <td>
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
@@ -65,8 +65,8 @@
         <!--/*-->
         <tr>
             <th scope="row" class="align-middle">2</th>
-            <td class="align-middle">Lisa</td>
             <td class="align-middle">Simpson</td>
+            <td class="align-middle">Lisa</td>
             <td>
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
@@ -86,8 +86,8 @@
         </tr>
         <tr>
             <th scope="row" class="align-middle">3</th>
-            <td class="align-middle">Homer</td>
             <td class="align-middle">Simpson</td>
+            <td class="align-middle">Homer</td>
             <td>
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
