@@ -2,9 +2,12 @@ INSERT INTO student
 (first_name, last_name, program_name, program_year, program_coop, program_internship)
 VALUES
 ('Harry', 'Potter', 'Computer Programmer', 1, true, false),
-('Ronald', 'Weasley', 'Systems Technician', 2, false, true),
+('Ronald', 'Weasley', 'Systems Technician', 1, false, true),
+('George', 'Weasley', 'Systems Technician', 2, false, true),
+('Fred', 'Weasley', 'Computer Programmer', 2, false, true),
+('Ginny', 'Weasley', 'Engineering Technician', 1, false, true),
 ('Hermione', 'Granger', 'Systems Technology', 1, false, false),
-('Draco', 'Malfoy', 'Engineering Technician', 2, true, true);
+('Draco', 'Malfoy', 'Engineering Technician', 1, true, true);
 
 /* all these passwords are "sesame" */
 INSERT INTO users
