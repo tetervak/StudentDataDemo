@@ -60,7 +60,9 @@ public class StudentDataRepositoryJdbcImpl implements StudentDataRepositoryJdbc 
 
     @Override
     public List<StudentForm> getAllStudentForms() {
-        return jdbcTemplate.query("SELECT * FROM student", new StudentFormRowMapper());
+        return jdbcTemplate.query(
+                "SELECT * FROM student ORDER BY last_name, first_name",
+                new StudentFormRowMapper());
     }
 
     @Override
