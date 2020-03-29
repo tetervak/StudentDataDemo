@@ -28,7 +28,7 @@ public class StudentDataController {
     private StudentDataService studentDataService;
 
     public StudentDataController(
-            @Qualifier("studentDataServiceJdbcImpl") StudentDataService studentDataService){
+            @Qualifier("studentDataServiceJpaImpl") StudentDataService studentDataService){
         this.studentDataService = studentDataService;
     }
 

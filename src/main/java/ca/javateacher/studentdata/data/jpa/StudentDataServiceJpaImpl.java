@@ -1,9 +1,9 @@
 package ca.javateacher.studentdata.data.jpa;
 
 import ca.javateacher.studentdata.data.StudentDataService;
-import ca.javateacher.studentdata.data.jpa.StudentDataRepositoryJpa;
 import ca.javateacher.studentdata.model.StudentEntity;
 import ca.javateacher.studentdata.model.StudentForm;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,8 +47,11 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
     }
 
     public List<StudentForm> getAllStudentForms() {
+        Sort.Order orderByLastName = new Sort.Order(Sort.Direction.ASC, "lastName");
+        Sort.Order orderByFirstName = new Sort.Order(Sort.Direction.ASC, "firstName");
+        Sort sortByName = Sort.by(orderByLastName, orderByFirstName);
+        List<StudentEntity> studentList = studentDataRepository.findAll(sortByName);
         List<StudentForm> formList = new ArrayList<>();
-        List<StudentEntity> studentList = studentDataRepository.findAll();
         for(StudentEntity student: studentList){
             StudentForm form = new StudentForm();
             copyEntityToForm(student, form);
