@@ -1,7 +1,6 @@
 package ca.javateacher.studentdata.data.jpa;
 
 import ca.javateacher.studentdata.data.StudentDataService;
-import ca.javateacher.studentdata.model.StudentEntity;
 import ca.javateacher.studentdata.model.StudentForm;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.*;

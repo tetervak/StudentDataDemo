@@ -8,18 +8,24 @@ CREATE TABLE student (
      program_internship BOOLEAN
 );
 
-CREATE TABLE users (
-   user_login VARCHAR(15) PRIMARY KEY,
-   user_password VARCHAR(128) NOT NULL
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(15) UNIQUE NOT NULL,
+    password VARCHAR(128) NOT NULL
 );
 
-CREATE TABLE roles (
-   user_login VARCHAR(15) NOT NULL,
-   user_role VARCHAR(15) NOT NULL,
+CREATE TABLE role (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(15) UNIQUE NOT NULL
+);
 
-   PRIMARY KEY (user_login, user_role),
-   FOREIGN KEY(user_login)
-       REFERENCES users(user_login)
+CREATE TABLE user_role (
+   user_id INT NOT NULL,
+   role_id INT NOT NULL,
+
+   PRIMARY KEY (user_id, role_id),
+   FOREIGN KEY(user_id) REFERENCES user(id),
+   FOREIGN KEY(role_id) REFERENCES role(id)
 );
 
 CREATE TABLE persistent_logins (

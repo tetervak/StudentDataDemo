@@ -16,57 +16,57 @@ public class LoginDataServiceJdbcImpl implements LoginDataService {
     }
 
     @Override
-    public boolean userExists(String login) {
-        return loginDataRepository.userExists(login);
+    public boolean userExists(String userName) {
+        return loginDataRepository.userExists(userName);
     }
 
     @Override
-    public void insertUser(String login, String password) {
-        loginDataRepository.insertUser(login, password);
+    public void insertUser(String userName, String password) {
+        loginDataRepository.insertUser(userName, password);
     }
 
     @Override
-    public void insertRole(String login, String role) {
-        loginDataRepository.insertRole(login, role);
+    public void insertRole(String userName, String roleName) {
+        loginDataRepository.insertRole(userName, roleName);
     }
 
     @Override
-    public void removeUser(String login) {
-        loginDataRepository.removeUser(login);
+    public void removeUser(String userName) {
+        loginDataRepository.removeUser(userName);
     }
 
     @Override
-    public void removeRole(String login, String role) {
-        loginDataRepository.removeRole(login, role);
+    public void removeRole(String userName, String roleName) {
+        loginDataRepository.removeRole(userName, roleName);
     }
 
     @Override
-    public void removeRoles(String login) {
-        loginDataRepository.removeRoles(login);
+    public void removeRoles(String userName) {
+        loginDataRepository.removeRoles(userName);
     }
 
     @Override
-    public List<String> getAllLogins(String role) {
-        return loginDataRepository.getAllLogins(role);
+    public List<String> getAllUserNames(String roleName) {
+        return loginDataRepository.getAllUserNames(roleName);
     }
 
     @Override
-    public List<String> getAllRoles(String login) {
-        return loginDataRepository.getAllRoles(login);
+    public List<String> getAllRoleNames(String userName) {
+        return loginDataRepository.getAllRoleNames(userName);
     }
 
     @Override
-    public void updatePassword(String login, String password) {
-        loginDataRepository.updatePassword(login, password);
+    public void updatePassword(String userName, String password) {
+        loginDataRepository.updatePassword(userName, password);
     }
 
     @Override
-    public boolean checkPassword(String login, String password) {
-        return loginDataRepository.checkPassword(login, password);
+    public boolean checkPassword(String userName, String password) {
+        return loginDataRepository.checkPassword(userName, password);
     }
 
     @Override
-    public String getPassword(String login) {
-        return loginDataRepository.getPassword(login);
+    public String getPassword(String userName) {
+        return loginDataRepository.getPassword(userName);
     }
 }

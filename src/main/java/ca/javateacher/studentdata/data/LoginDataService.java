@@ -3,15 +3,15 @@ package ca.javateacher.studentdata.data;
 import java.util.List;
 
 public interface LoginDataService {
-    boolean userExists(String login);
-    void insertUser(String login, String password);
-    void insertRole(String login, String role);
-    void removeUser(String login);
-    void removeRole(String login, String role);
-    void removeRoles(String login);
-    List<String> getAllLogins(String role);
-    List<String> getAllRoles(String login);
-    void updatePassword(String login, String password);
-    boolean checkPassword(String login, String password);
-    String getPassword(String login);
+    boolean userExists(String userName);
+    void insertUser(String userName, String password);
+    void insertRole(String userName, String roleName);
+    void removeUser(String userName);
+    void removeRole(String userName, String roleName);
+    void removeRoles(String userName);
+    List<String> getAllUserNames(String roleName);
+    List<String> getAllRoleNames(String userName);
+    void updatePassword(String userName, String password);
+    boolean checkPassword(String userName, String password);
+    String getPassword(String userName);
 }

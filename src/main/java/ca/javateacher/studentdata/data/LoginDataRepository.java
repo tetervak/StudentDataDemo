@@ -9,8 +9,8 @@ public interface LoginDataRepository {
     void removeUser(String login);
     void removeRole(String login, String role);
     void removeRoles(String login);
-    List<String> getAllLogins(String role);
-    List<String> getAllRoles(String login);
+    List<String> getAllUserNames(String role);
+    List<String> getAllRoleNames(String login);
     void updatePassword(String login, String password);
     boolean checkPassword(String login, String password);
     String getPassword(String login);

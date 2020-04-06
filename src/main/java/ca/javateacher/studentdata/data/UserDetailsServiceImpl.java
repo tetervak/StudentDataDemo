@@ -2,6 +2,7 @@ package ca.javateacher.studentdata.data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private LoginDataService loginDataService;
 
-    public UserDetailsServiceImpl(LoginDataService loginDataService) {
+    public UserDetailsServiceImpl(
+            @Qualifier("loginDataServiceJpaImpl") LoginDataService loginDataService) {
 
         this.loginDataService = loginDataService;
     }
@@ -41,7 +43,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private List<GrantedAuthority> getAuthorities(String login) {
         logger.trace("getAuthorities() is called");
-        List<String> listOfRoles = loginDataService.getAllRoles(login);
+        List<String> listOfRoles = loginDataService.getAllRoleNames(login);
         String[] arrayOfRoles = listOfRoles.toArray(new String[0]);
         logger.trace("roles for login=" +
                 login + ":[" + String.join(",", arrayOfRoles) + "]");

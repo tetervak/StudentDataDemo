@@ -10,18 +10,24 @@ VALUES
 ('Draco', 'Malfoy', 'Engineering Technician', 1, true, true);
 
 /* all these passwords are "sesame" */
-INSERT INTO users
-(user_login, user_password)
+INSERT INTO user
+(user_name, password)
 VALUES
 ('marge','$2a$10$bxGtVIu12/dXFQ8I1VrCmeFap8AXK.8EFgp.NRgaGt5no27uZd8Ty'),
 ('homer','$2a$10$5y39gonhJWNtUXFHi3gLaumMYLKmK/O4Jshi4/IlhryYNxhEFSNuy'),
 ('bart','$2a$10$WFceIBbBe2ynUC6ckJltOeI9qNgKSqGzE/PqD2BbxBHSVZyscOF8O'),
 ('lisa','$2a$10$/0le0donOsBt.kSva6CNNeNXRjm83m.VQeEsWHyY9ORQwJeGN/DAa');
 
-INSERT INTO roles
-(user_login, user_role)
+INSERT INTO role
+(role_name)
 VALUES
-('marge','ROLE_ADMIN'),
-('homer','ROLE_ADMIN'),
-('bart','ROLE_USER'),
-('lisa','ROLE_USER');
+('ROLE_ADMIN'),
+('ROLE_USER');
+
+INSERT INTO user_role
+(user_id, role_id)
+VALUES
+(1,1),
+(2,1),
+(3,2),
+(4,2);

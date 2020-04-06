@@ -27,11 +27,11 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
     }
 
     @Override
-    public boolean userExists(String login) {
-        String query = "SELECT COUNT(user_login) FROM users "
-                + "WHERE user_login = :user_login";
+    public boolean userExists(String userName) {
+        String query = "SELECT COUNT(user_name) FROM user "
+                + "WHERE user_name = :user_name";
         Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
+        params.put("user_name", userName);
         @SuppressWarnings("ConstantConditions")
         int count =
                 namedParameterJdbcTemplate.queryForObject(query, params, Integer.class);
@@ -39,81 +39,110 @@ public class LoginDataRepositoryJdbcImpl implements LoginDataRepository {
     }
 
     @Override
-    public void insertUser(String login, String password) {
-        String update = "INSERT INTO users "
-                + "(user_login, user_password) VALUES (:user_login, :user_password)";
+    public void insertUser(String userName, String password) {
+        String update = "INSERT INTO user "
+                + "(user_name, password) VALUES (:user_name, :password)";
         Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        params.put("user_password", encoder.encode(password));
+        params.put("user_name", userName);
+        params.put("password", encoder.encode(password));
         namedParameterJdbcTemplate.update(update, params);
     }
 
-    @Override
-    public void insertRole(String login, String role) {
-        jdbcTemplate.update(
-                "INSERT INTO roles (user_login, user_role) VALUES (?, ?)",
-                login, role);
+    private Integer findUserIdByUserName(String userName){
+        return jdbcTemplate.queryForObject(
+                "SELECT id FROM user WHERE user_name = ? LIMIT 1",
+                Integer.class,
+                userName);
+    }
+
+    private Integer findRoleIdByRoleName(String roleName){
+        return jdbcTemplate.queryForObject(
+                "SELECT id FROM role WHERE role_name = ? LIMIT 1",
+                Integer.class,
+                roleName);
     }
 
     @Override
-    public void removeUser(String login) {
-        jdbcTemplate.update("DELETE FROM users WHERE user_login = ?", login);
+    public void insertRole(String userName, String roleName) {
+        Integer userId = findUserIdByUserName(userName);
+        if(userId != null){
+            Integer roleId = findRoleIdByRoleName(roleName);
+            if(roleId != null){
+                jdbcTemplate.update(
+                        "INSERT INTO user_role (user_id, role_id) VALUES (?, ?)",
+                        userId, roleId);
+            }
+        }
+    }
+
+
+
+    @Override
+    public void removeUser(String userName) {
+        jdbcTemplate.update("DELETE FROM user WHERE user_name = ?", userName);
     }
 
     @Override
-    public void removeRole(String login, String role) {
-        String update = "DELETE FROM roles "
-                + "WHERE user_login = :user_login AND user_role = :user_role";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        params.put("user_role", role);
-        namedParameterJdbcTemplate.update(update, params);
+    public void removeRole(String userName, String roleName) {
+        Integer userId = findUserIdByUserName(userName);
+        if(userId != null){
+            Integer roleId = findRoleIdByRoleName(roleName);
+            if(roleId != null){
+                jdbcTemplate.update(
+                        "DELETE FROM user_role WHERE user_id = ? AND role_id = ?",
+                        userId, roleId);
+            }
+        }
     }
 
     @Override
-    public void removeRoles(String login) {
-        String update = "DELETE FROM roles WHERE user_login = :user_login";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        namedParameterJdbcTemplate.update(update, params);
+    public void removeRoles(String userName) {
+        Integer userId = findUserIdByUserName(userName);
+        if(userId != null){
+            jdbcTemplate.update("DELETE FROM user_role WHERE user_id = ?", userId);
+        }
     }
 
     @Override
-    public List<String> getAllLogins(String role) {
+    public List<String> getAllUserNames(String roleName) {
+        Integer roleId = findRoleIdByRoleName(roleName);
         return jdbcTemplate.queryForList(
-                "SELECT user_login FROM roles WHERE user_role = ?",
-                String.class, role);
+                "SELECT user_name FROM user INNER JOIN user_role " +
+                        "ON user_role.role_id = ? AND user.id = user_role.user_id",
+                String.class, roleId);
     }
 
     @Override
-    public List<String> getAllRoles(String login) {
-        String query = "SELECT user_role FROM roles WHERE user_login = :user_login";
+    public List<String> getAllRoleNames(String userName) {
+        Integer userId = findUserIdByUserName(userName);
+        String query = "SELECT role_name FROM role INNER JOIN user_role " +
+                "ON user_role.user_id = :user_id AND role.id = user_role.role_id";
         Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
+        params.put("user_id", userId);
         return namedParameterJdbcTemplate.queryForList(query, params, String.class);
     }
 
     @Override
-    public void updatePassword(String login, String password) {
-        String update = "UPDATE users SET "
-                + "user_password = :user_password WHERE user_login = :user_login";
+    public void updatePassword(String userName, String password) {
+        String update = "UPDATE user SET "
+                + "password = :password WHERE user_name = :user_name";
         Map<String, Object> params = new HashMap<>();
-        params.put("user_login", login);
-        params.put("user_password", encoder.encode(password));
+        params.put("user_name", userName);
+        params.put("password", encoder.encode(password));
         namedParameterJdbcTemplate.update(update, params);
     }
 
     @Override
-    public boolean checkPassword(String login, String password) {
-        String stored_password = getPassword(login);
+    public boolean checkPassword(String userName, String password) {
+        String stored_password = getPassword(userName);
         return encoder.matches(password, stored_password);
     }
 
     @Override
-    public String getPassword(String login) {
+    public String getPassword(String userName) {
         return jdbcTemplate.queryForObject(
-                "SELECT user_password FROM users WHERE user_login = ?",
-                String.class, login);
+                "SELECT password FROM user WHERE user_name = ?",
+                String.class, userName);
     }
 
 }

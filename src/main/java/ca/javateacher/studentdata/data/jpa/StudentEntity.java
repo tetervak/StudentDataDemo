@@ -1,4 +1,4 @@
-package ca.javateacher.studentdata.model;
+package ca.javateacher.studentdata.data.jpa;
 
 import javax.persistence.*;
 import java.io.Serializable;
