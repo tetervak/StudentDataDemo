@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class StudentDataServiceImpl implements StudentDataService {
 
-    private StudentDataRepository studentDataRepository;
+    private final StudentDataRepository studentDataRepository;
 
     StudentDataServiceImpl(StudentDataRepository studentDataRepository){
         this.studentDataRepository = studentDataRepository;

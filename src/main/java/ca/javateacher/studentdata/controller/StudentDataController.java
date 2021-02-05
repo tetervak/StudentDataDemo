@@ -26,7 +26,7 @@ public class StudentDataController {
             "Computer Programmer", "Systems Technology",
             "Engineering Technician", "Systems Technician"};
 
-    private StudentDataService studentDataService;
+    private final StudentDataService studentDataService;
 
     public StudentDataController(StudentDataService studentDataService){
         this.studentDataService = studentDataService;
